@@ -1,5 +1,6 @@
 package com.springboot.facturacionfrasson.service;
 
+import com.springboot.facturacionfrasson.exception.ValidationException;
 import com.springboot.facturacionfrasson.model.Product;
 import com.springboot.facturacionfrasson.model.RequestProductDetail;
 import com.springboot.facturacionfrasson.repository.ProductRepository;
@@ -17,13 +18,18 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public Product postProduct(Product product) throws Exception{
+        if(product.getTitle() == null) throw new ValidationException("Product title is empty.", "title");
+        if(product.getDescription() == null) throw new ValidationException("Product description is empty.", "description");
+        if(product.getCode() == null) throw new ValidationException("Product code is empty.", "sku");
+        if(Double.valueOf(product.getPrice()) == null || product.getPrice() <= 0.0) throw new ValidationException("Product price is wrong.", "price");
+        if(Integer.valueOf(product.getStock()) == null || product.getStock() <= 0) throw new ValidationException("Product stock is wrong.", "stock");
         return this.productRepository.save(product);
     }
 
     public Product updateProduct(int id, Product updateProduct) throws Exception{
         Optional<Product> productFoundUpdate = this.productRepository.findById(id);
         if(productFoundUpdate.isEmpty()){
-            throw new Exception("Product not founded");
+            throw new Exception("Product not founded with id: " + id);
         }
         //Actualizamos el producto
         Product productUpdate = productFoundUpdate.get();
@@ -40,7 +46,7 @@ public class ProductService {
     public Product getProductById(int id) throws Exception{
         Optional<Product> productFound = this.productRepository.findById(id);
         if(productFound.isEmpty()){
-            throw new Exception("Product not founded");
+            throw new Exception("Product not founded with id: " + id);
         }
         return productFound.get();
     }
@@ -51,11 +57,19 @@ public class ProductService {
         for(RequestProductDetail requestProductDetail: productListId){
             Optional<Product> productoFound = this.productRepository.findById(requestProductDetail.getProductoId());
             //Validdamos que el producto este, tenga stock disponible o la cantidad pedida no sea mayor al stock.
-            if(productoFound.isEmpty() || productoFound.get().getStock() == 0 || productoFound.get().getStock() < requestProductDetail.getQuantity()){
+//            if(productoFound.isEmpty() || productoFound.get().getStock() == 0 || productoFound.get().getStock() < requestProductDetail.getQuantity()){
+//                throw new Exception("Product not found" + requestProductDetail.getProductoId());
+//            }
+            if(productoFound.isEmpty()) {
                 throw new Exception("Product not found" + requestProductDetail.getProductoId());
             }
+            if (productoFound.get().getStock() == 0) {
+                throw new Exception("Product id: " + requestProductDetail.getProductoId() + ", stock empty.");
+            }
+            if (productoFound.get().getStock() < requestProductDetail.getQuantity()) {
+                throw new Exception("Product id: " + requestProductDetail.getProductoId() + ", stock is insufficient.");
+            }
             productList.add(productoFound.get());
-            //TODO: Actualizamos la cantidad del stock,
         }
         return productList;
     }
@@ -63,7 +77,7 @@ public class ProductService {
     public Product deleteProduct(int id) throws Exception{
         Optional<Product> productFound = this.productRepository.findById(id);
         if(productFound.isEmpty()){
-            throw new Exception("Product not founded");
+            throw new Exception("Product not founded with id: " + id);
         }
         Product productDelete = productFound.get();
         this.productRepository.deleteById(productFound.get().getId());

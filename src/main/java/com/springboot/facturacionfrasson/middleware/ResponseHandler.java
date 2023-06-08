@@ -19,4 +19,17 @@ public class ResponseHandler {
 
         return new ResponseEntity<Object>(map, status);
     }
+
+    public static ResponseEntity<Object> generateValidationErrorResponse(
+            String message,
+            HttpStatus status,
+            String field
+    ) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("message", message);
+        map.put("status", status.value());
+        map.put("field", field);
+
+        return new ResponseEntity<>(map, status);
+    }
 }

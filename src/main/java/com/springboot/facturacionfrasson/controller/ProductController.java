@@ -1,5 +1,6 @@
 package com.springboot.facturacionfrasson.controller;
 
+import com.springboot.facturacionfrasson.exception.ValidationException;
 import com.springboot.facturacionfrasson.middleware.ResponseHandler;
 import com.springboot.facturacionfrasson.model.Product;
 import com.springboot.facturacionfrasson.service.ProductService;
@@ -24,12 +25,14 @@ public class ProductController {
                     HttpStatus.OK,
                     data
             );
-        }catch(Exception e){
-            return ResponseHandler.generateResponse(
-                    "Product not found",
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    null
+        }catch (ValidationException e) {
+            return ResponseHandler.generateValidationErrorResponse(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST,
+                    e.getField()
             );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -42,7 +45,7 @@ public class ProductController {
                     HttpStatus.OK,
                     data
             );
-        }catch (Exception e){
+        }catch(Exception e){
             return ResponseHandler.generateResponse(
                     "Product not found",
                     HttpStatus.INTERNAL_SERVER_ERROR,
@@ -54,9 +57,6 @@ public class ProductController {
     @PutMapping(path = "{id}")
     public ResponseEntity<Object> updateProduct(@PathVariable() int id, @RequestBody Product updateProduct){
         try{
-//            System.out.println(id);
-//            System.out.println(updateProduct);
-//            System.out.println(this.productService.getProductById(id));
             this.productService.updateProduct(id, updateProduct);
             return ResponseHandler.generateResponse(
                     "Product update successfully",
