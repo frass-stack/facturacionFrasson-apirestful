@@ -10,6 +10,9 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(nullable = false)
+    private String title;
     @Column(nullable = false)
     private String description;
     @Column(nullable = false)
@@ -29,6 +32,14 @@ public class Product {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -73,12 +84,11 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Producto{" +
-                "id=" + id +
+        return "id=" + id +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", code='" + code + '\'' +
                 ", price=" + price +
-                ", stock=" + stock +
-                '}';
+                ", stock=" + stock;
     }
 }

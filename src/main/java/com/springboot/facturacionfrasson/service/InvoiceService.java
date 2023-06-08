@@ -86,11 +86,15 @@ public class InvoiceService {
         );
     }
 
-    public InvoiceWithDetailsDTO getInvoiceById(int id) throws Exception{
+    public InvoiceWithDetailsDTO getInvoiceById(int id, int client_id) throws Exception{
         //Corroboramos que la factura exista
         Optional<Invoice> invoiceFound = this.invoiceRepository.findById(id);
         if(invoiceFound.isEmpty()){
-            throw new Exception("Invoice not found");
+            throw new Exception("Invoice not found to id: " + id);
+        }
+        Optional<Client> clientFound = this.clientRepository.findById(client_id);
+        if(clientFound.isEmpty()){
+            throw new Exception("client not found to id: " + client_id);
         }
 
         //Buscamos los detalles asociados a la factura.
@@ -98,6 +102,7 @@ public class InvoiceService {
 
         return new InvoiceWithDetailsDTO(
             invoiceFound.get().getId(),
+            clientFound.get().getId(),
             invoiceFound.get().getCreated_at(),
             invoiceFound.get().getTotal(),
             invoiceDetails

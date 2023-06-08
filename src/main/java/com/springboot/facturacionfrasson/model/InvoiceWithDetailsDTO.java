@@ -3,16 +3,26 @@ package com.springboot.facturacionfrasson.model;
 import java.util.List;
 
 public class InvoiceWithDetailsDTO {
+    private int client_id;
     private int invoice_id;
     private String created_at;
     private double total;
     private List<InvoiceDetailDTO> details;
 
-    public InvoiceWithDetailsDTO(int invoice_id, String created_at, double total, List<InvoiceDetailDTO> details) {
+    public InvoiceWithDetailsDTO(int invoice_id, int client_id, String created_at, double total, List<InvoiceDetailDTO> details) {
         this.invoice_id = invoice_id;
+        this.client_id = client_id;
         this.created_at = created_at;
         this.total = total;
         this.details = details;
+    }
+
+    public int getClient_id() {
+        return client_id;
+    }
+
+    public void setClient_id(int client_id) {
+        this.client_id = client_id;
     }
 
     public int getInvoice_id() {
@@ -50,6 +60,7 @@ public class InvoiceWithDetailsDTO {
     @Override
     public String toString() {
         return "invoice_id=" + invoice_id +
+                "client_id=" + client_id +
                 ", created_at='" + created_at + '\'' +
                 ", total=" + total +
                 ", details=" + details;

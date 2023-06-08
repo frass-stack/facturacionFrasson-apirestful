@@ -7,6 +7,7 @@ CREATE TABLE client(
 
 CREATE TABLE product(
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(50),
     description VARCHAR(150),
     code VARCHAR(50) UNIQUE NOT NULL,
     stock INTEGER,
