@@ -61,13 +61,13 @@ public class ProductService {
 //                throw new Exception("Product not found" + requestProductDetail.getProductoId());
 //            }
             if(productoFound.isEmpty()) {
-                throw new Exception("Product not found" + requestProductDetail.getProductoId());
+                throw new ValidationException("Product not found", "id");
             }
             if (productoFound.get().getStock() == 0) {
-                throw new Exception("Product id: " + requestProductDetail.getProductoId() + ", stock empty.");
+                throw new ValidationException("Product id: ".concat(String.valueOf(productoFound.get().getId())) ,"stock empty.");
             }
             if (productoFound.get().getStock() < requestProductDetail.getQuantity()) {
-                throw new Exception("Product id: " + requestProductDetail.getProductoId() + ", stock is insufficient.");
+                throw new ValidationException("Product id: ".concat(String.valueOf(productoFound.get().getId())) ,"stock is insufficient.");
             }
             productList.add(productoFound.get());
         }

@@ -1,5 +1,6 @@
 package com.springboot.facturacionfrasson.controller;
 
+import com.springboot.facturacionfrasson.exception.ValidationException;
 import com.springboot.facturacionfrasson.middleware.ResponseHandler;
 import com.springboot.facturacionfrasson.model.InvoiceDTO;
 import com.springboot.facturacionfrasson.model.InvoiceWithDetailsDTO;
@@ -29,12 +30,14 @@ public class InvoiceController {
                     HttpStatus.OK,
                     data
             );
-        }catch(Exception e){
-            return ResponseHandler.generateResponse(
-                    "Invoice not found",
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    null
+        }catch (ValidationException e) {
+            return ResponseHandler.generateValidationErrorResponse(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST,
+                    e.getField()
             );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
