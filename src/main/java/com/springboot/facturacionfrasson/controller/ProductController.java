@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "api/v1/product")
 public class ProductController {
@@ -33,6 +35,24 @@ public class ProductController {
             );
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<Object> getProducts(){
+        try{
+            List<Product> productList = this.productService.getProducts();
+            return ResponseHandler.generateResponse(
+                    "Products List founded successfully",
+                    HttpStatus.OK,
+                    productList
+            );
+        }catch(Exception e){
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    null
+            );
         }
     }
 

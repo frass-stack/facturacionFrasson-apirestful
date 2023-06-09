@@ -83,4 +83,10 @@ public class ProductService {
         this.productRepository.deleteById(productFound.get().getId());
         return productDelete;
     }
+
+    public List<Product> getProducts() throws Exception {
+        List<Product> productList = this.productRepository.findAll();
+        if(productList.isEmpty()) throw new Exception("List is empty.");
+        return productList;
+    }
 }
