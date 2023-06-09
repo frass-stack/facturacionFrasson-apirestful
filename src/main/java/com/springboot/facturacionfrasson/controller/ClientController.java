@@ -1,5 +1,6 @@
 package com.springboot.facturacionfrasson.controller;
 
+import com.springboot.facturacionfrasson.exception.ValidationException;
 import com.springboot.facturacionfrasson.middleware.ResponseHandler;
 import com.springboot.facturacionfrasson.model.Client;
 import com.springboot.facturacionfrasson.service.ClientService;
@@ -27,12 +28,14 @@ public class ClientController {
                 HttpStatus.OK,
                 clientSaved
             );
-        }catch(Exception e){
-            return ResponseHandler.generateResponse(
+        }catch (ValidationException e) {
+            return ResponseHandler.generateValidationErrorResponse(
                     e.getMessage(),
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    null
+                    HttpStatus.BAD_REQUEST,
+                    e.getField()
             );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

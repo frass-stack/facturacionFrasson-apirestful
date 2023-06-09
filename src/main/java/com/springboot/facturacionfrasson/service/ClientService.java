@@ -1,5 +1,6 @@
 package com.springboot.facturacionfrasson.service;
 
+import com.springboot.facturacionfrasson.exception.ValidationException;
 import com.springboot.facturacionfrasson.model.Client;
 import com.springboot.facturacionfrasson.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class ClientService {
     private ClientRepository clientRepository;
 
     public Client postClient(Client client) throws Exception{
+        if(client.getName() == null) throw new ValidationException("Client name is empty.", "name");
+        if(client.getLastname() == null) throw new ValidationException("Client lastname is empty.", "lastname");
+        if(client.getDocnumber() == null) throw new ValidationException("Client docnumber is empty.", "docnumber");
        return this.clientRepository.save(client);
     }
 
