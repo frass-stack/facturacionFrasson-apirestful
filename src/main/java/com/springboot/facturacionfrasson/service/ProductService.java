@@ -2,6 +2,7 @@ package com.springboot.facturacionfrasson.service;
 
 import com.springboot.facturacionfrasson.exception.ValidationException;
 import com.springboot.facturacionfrasson.model.Product;
+import com.springboot.facturacionfrasson.model.ProductDTO;
 import com.springboot.facturacionfrasson.model.RequestProductDetail;
 import com.springboot.facturacionfrasson.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,15 +41,23 @@ public class ProductService {
         //Guardamos el producto actualizado
         this.productRepository.save(productUpdate);
 
-        return this.productRepository.findById(id).get();
+        return productUpdate;
     }
 
-    public Product getProductById(int id) throws Exception{
+    public ProductDTO getProductById(int id) throws Exception{
         Optional<Product> productFound = this.productRepository.findById(id);
         if(productFound.isEmpty()){
             throw new Exception("Product not founded with id: " + id);
         }
-        return productFound.get();
+        ProductDTO productDTO = new ProductDTO(
+                productFound.get().getId(),
+                productFound.get().getTitle(),
+                productFound.get().getDescription(),
+                productFound.get().getCode(),
+                productFound.get().getPrice(),
+                productFound.get().getStock()
+        );
+        return productDTO;
     }
 
     public List<Product> getProductsById(List<RequestProductDetail> productListId) throws Exception{
@@ -74,19 +83,40 @@ public class ProductService {
         return productList;
     }
 
-    public Product deleteProduct(int id) throws Exception{
+    public ProductDTO deleteProduct(int id) throws Exception{
         Optional<Product> productFound = this.productRepository.findById(id);
         if(productFound.isEmpty()){
             throw new Exception("Product not founded with id: " + id);
         }
-        Product productDelete = productFound.get();
+        ProductDTO product = new ProductDTO(
+                productFound.get().getId(),
+                productFound.get().getTitle(),
+                productFound.get().getDescription(),
+                productFound.get().getCode(),
+                productFound.get().getPrice(),
+                productFound.get().getStock()
+        );
         this.productRepository.deleteById(productFound.get().getId());
-        return productDelete;
+        return product;
     }
 
-    public List<Product> getProducts() throws Exception {
+    public List<ProductDTO> getProducts() throws Exception {
         List<Product> productList = this.productRepository.findAll();
-        if(productList.isEmpty()) throw new Exception("List is empty.");
-        return productList;
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        if(productList.isEmpty()) {
+            throw new Exception("List is empty.");
+        };
+        for(Product product: productList){
+            ProductDTO productDTO = new ProductDTO(
+                    product.getId(),
+                    product.getTitle(),
+                    product.getDescription(),
+                    product.getCode(),
+                    product.getPrice(),
+                    product.getStock()
+            );
+            productDTOS.add(productDTO);
+        }
+        return productDTOS;
     }
 }

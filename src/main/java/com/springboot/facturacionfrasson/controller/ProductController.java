@@ -3,6 +3,7 @@ package com.springboot.facturacionfrasson.controller;
 import com.springboot.facturacionfrasson.exception.ValidationException;
 import com.springboot.facturacionfrasson.middleware.ResponseHandler;
 import com.springboot.facturacionfrasson.model.Product;
+import com.springboot.facturacionfrasson.model.ProductDTO;
 import com.springboot.facturacionfrasson.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,7 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<Object> getProducts(){
         try{
-            List<Product> productList = this.productService.getProducts();
+            List<ProductDTO> productList = this.productService.getProducts();
             return ResponseHandler.generateResponse(
                     "Products List founded successfully",
                     HttpStatus.OK,
@@ -59,7 +60,7 @@ public class ProductController {
     @GetMapping(path = "{id}")
     public ResponseEntity<Object> getProductById(@PathVariable() int id){
         try{
-            Product data = this.productService.getProductById(id);
+            ProductDTO data = this.productService.getProductById(id);
             return ResponseHandler.generateResponse(
                     "Product founded successfully",
                     HttpStatus.OK,
@@ -85,7 +86,7 @@ public class ProductController {
             );
         }catch(Exception e){
             return ResponseHandler.generateResponse(
-                    "Product not found",
+                    e.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR,
                     null
             );
@@ -95,7 +96,7 @@ public class ProductController {
     @DeleteMapping(path = "{id}")
     public ResponseEntity<Object> deleteProduct(@PathVariable() int id){
         try{
-            Product productoBorrado = this.productService.getProductById(id);
+            ProductDTO productoBorrado = this.productService.getProductById(id);
             this.productService.deleteProduct(id);
             return ResponseHandler.generateResponse(
                     "Product delete successfully",
@@ -104,7 +105,7 @@ public class ProductController {
             );
         }catch(Exception e){
             return ResponseHandler.generateResponse(
-                    "Product not found",
+                    e.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR,
                     null
             );

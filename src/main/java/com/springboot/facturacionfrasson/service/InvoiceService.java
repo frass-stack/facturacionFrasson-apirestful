@@ -68,10 +68,13 @@ public class InvoiceService {
         //Actualizamos el stock del producto
         int n = 0;
         for(Product productUpdateStock: productList){
-//            System.out.println(productUpdateStock.getId());
-//            System.out.println(productUpdateStock.getStock());
-            Product productFound = this.productService.getProductById(productUpdateStock.getId());
-//            System.out.println(productFound);
+            ProductDTO productDTO = this.productService.getProductById(productUpdateStock.getId());
+            Product productFound = new Product();
+            productFound.setId(productDTO.getProduct_id());
+            productFound.setTitle(productDTO.getTitle());
+            productFound.setDescription(productDTO.getDescription());
+            productFound.setCode(productDTO.getCode());
+            productFound.setPrice(productDTO.getPrice());
             int stockRestante = productUpdateStock.getStock() - requestInvoice.getProduct_list().get(n).getQuantity();
             productFound.setStock(stockRestante);
             this.productService.updateProduct(productUpdateStock.getId(), productFound);
