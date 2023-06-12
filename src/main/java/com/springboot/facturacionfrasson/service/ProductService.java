@@ -27,7 +27,7 @@ public class ProductService {
         return this.productRepository.save(product);
     }
 
-    public Product updateProduct(int id, Product updateProduct) throws Exception{
+    public void updateProduct(int id, Product updateProduct) throws Exception{
         Optional<Product> productFoundUpdate = this.productRepository.findById(id);
         if(productFoundUpdate.isEmpty()){
             throw new Exception("Product not founded with id: " + id);
@@ -37,11 +37,12 @@ public class ProductService {
         if(updateProduct.getDescription() != null) productUpdate.setDescription(updateProduct.getDescription());
         if(updateProduct.getCode() != null) productUpdate.setCode(updateProduct.getCode());
         if(updateProduct.getPrice() >= 0) productUpdate.setPrice(updateProduct.getPrice());
-        if(updateProduct.getStock() >= 0) productUpdate.setStock(updateProduct.getStock());
+        if(updateProduct.getStock() >= 0) {
+            int nuevoStock = updateProduct.getStock();
+            productUpdate.setStock(nuevoStock);
+        }
         //Guardamos el producto actualizado
         this.productRepository.save(productUpdate);
-
-        return productUpdate;
     }
 
     public ProductDTO getProductById(int id) throws Exception{
