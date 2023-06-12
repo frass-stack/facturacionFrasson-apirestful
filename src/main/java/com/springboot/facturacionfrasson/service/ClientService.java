@@ -2,10 +2,12 @@ package com.springboot.facturacionfrasson.service;
 
 import com.springboot.facturacionfrasson.exception.ValidationException;
 import com.springboot.facturacionfrasson.model.Client;
+import com.springboot.facturacionfrasson.model.ClientDTO;
 import com.springboot.facturacionfrasson.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,34 +24,51 @@ public class ClientService {
        return this.clientRepository.save(client);
     }
 
-    public List<Client> getClients() throws Exception{
+    public List<ClientDTO> getClients() throws Exception{
         List<Client> lista = this.clientRepository.findAll();
+        List<ClientDTO> listaDTO = new ArrayList<>();
         if(lista.isEmpty()) throw new Exception("List is empty");
-        return lista;
+
+        for(Client clientFounded: lista){
+            ClientDTO clientDTO = new ClientDTO(
+                    clientFounded.getId(),
+                    clientFounded.getName(),
+                    clientFounded.getLastname(),
+                    clientFounded.getDocnumber()
+            );
+            listaDTO.add(clientDTO);
+        }
+
+        return listaDTO;
     }
 
-    public Client getClientById(int id) throws Exception{
+    public ClientDTO getClientById(int id) throws Exception{
         Optional<Client> clientFounded = this.clientRepository.findById(id);
         if(clientFounded.isEmpty()){
             throw new Exception("Client not found");
         }
-        return clientFounded.get();
+        ClientDTO clientDTO = new ClientDTO(
+                clientFounded.get().getId(),
+                clientFounded.get().getName(),
+                clientFounded.get().getLastname(),
+                clientFounded.get().getDocnumber()
+        );
+        return clientDTO;
     }
 
-    public Client deleteClient(int id) throws Exception{
+    public void deleteClient(int id) throws Exception{
         Optional<Client> clientDelete = this.clientRepository.findById(id);
         if(clientDelete.isEmpty()){
             throw new Exception("Client not found");
         }
         Client client = clientDelete.get();
         this.clientRepository.deleteById(id);
-        return client;
     }
 
-    public Client updateClient(int id, Client dataUpdate) throws Exception{
+    public void updateClient(int id, Client dataUpdate) throws Exception{
         Optional<Client> clientFoundUpdate = this.clientRepository.findById(id);
         if(clientFoundUpdate.isEmpty()){
-            throw new Exception("Client not founded");
+            throw new Exception("Client not founded: " + id);
         }
         //Actualizamos el cliente
         Client clientUpdate = clientFoundUpdate.get();
@@ -58,7 +77,5 @@ public class ClientService {
         if(dataUpdate.getDocnumber() != null) clientUpdate.setDocnumber(dataUpdate.getDocnumber());
         //Guardamos el cliente actualizado
         this.clientRepository.save(clientUpdate);
-
-        return this.clientRepository.findById(id).get();
     }
 }

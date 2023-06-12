@@ -3,6 +3,7 @@ package com.springboot.facturacionfrasson.controller;
 import com.springboot.facturacionfrasson.exception.ValidationException;
 import com.springboot.facturacionfrasson.middleware.ResponseHandler;
 import com.springboot.facturacionfrasson.model.Client;
+import com.springboot.facturacionfrasson.model.ClientDTO;
 import com.springboot.facturacionfrasson.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,7 @@ public class ClientController {
     public ResponseEntity<Object> getClients(){
         try{
 //            System.out.println("Hola, estoy pidiendo la lista de clientes guardados.");
-            List<Client> clientList = clientService.getClients();
+            List<ClientDTO> clientList = clientService.getClients();
             return ResponseHandler.generateResponse(
                     "Client list founded successfully",
                     HttpStatus.OK,
@@ -62,7 +63,7 @@ public class ClientController {
     public ResponseEntity<Object> getClient(@PathVariable() int id){
         try{
 //            System.out.println(id);
-            Client clienFound = clientService.getClientById(id);
+            ClientDTO clienFound = clientService.getClientById(id);
             return ResponseHandler.generateResponse(
                     "Client founded successfully",
                     HttpStatus.OK,
@@ -80,11 +81,11 @@ public class ClientController {
     @DeleteMapping(path = "{id}")
     public ResponseEntity<Object> deleteClient(@PathVariable() int id){
         try{
-            Client clientDelete = this.clientService.deleteClient(id);
+            this.clientService.deleteClient(id);
             return ResponseHandler.generateResponse(
                     "Client delete successfully",
                     HttpStatus.OK,
-                    clientDelete
+                    null
             );
         }catch (Exception e){
             return ResponseHandler.generateResponse(
@@ -98,11 +99,11 @@ public class ClientController {
     @PutMapping(path = "{id}")
     public ResponseEntity<Object> updateClient(@PathVariable() int id, @RequestBody Client clientUpdate){
         try{
-            Client clientDataUpdate = this.clientService.updateClient(id, clientUpdate);
+            this.clientService.updateClient(id, clientUpdate);
             return ResponseHandler.generateResponse(
-                    "Client delete successfully",
+                    "Client update successfully",
                     HttpStatus.OK,
-                    clientDataUpdate
+                    null
             );
         }catch(Exception e){
             return ResponseHandler.generateResponse(
