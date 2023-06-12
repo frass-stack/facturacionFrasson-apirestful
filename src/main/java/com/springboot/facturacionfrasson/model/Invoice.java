@@ -15,7 +15,7 @@ public class Invoice {
     private String created_at;
     private double total;
 
-    @OneToMany(mappedBy = "invoice", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<InvoiceDetail> invoiceDetails;
 
     public int getId() {

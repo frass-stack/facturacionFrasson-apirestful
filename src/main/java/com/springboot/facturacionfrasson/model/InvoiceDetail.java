@@ -8,7 +8,8 @@ public class InvoiceDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Invoice invoice;
     @ManyToOne
     private Product product;

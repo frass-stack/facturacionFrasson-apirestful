@@ -22,7 +22,7 @@ public class Client {
 
     //mappedBy establece que la tabla propietaria sea el client en este caso
     //fetchType.Eager permite consultar las facturas asociadas a un cliente en el momento de la carga.
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.EAGER)
     private List<Invoice> invoice;
 
     //RESTO DE LOS MÉTODOS

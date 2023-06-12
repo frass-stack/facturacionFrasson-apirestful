@@ -22,7 +22,7 @@ public class Product {
     @Column(nullable = false)
     private int stock;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.EAGER)
     private List<InvoiceDetail> invoiceDetails;
 
     //Getters y setters y override methods
