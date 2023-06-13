@@ -66,10 +66,8 @@ public class ProductService {
 
         for(RequestProductDetail requestProductDetail: productListId){
             Optional<Product> productoFound = this.productRepository.findById(requestProductDetail.getProductoId());
+
             //Validdamos que el producto este, tenga stock disponible o la cantidad pedida no sea mayor al stock.
-//            if(productoFound.isEmpty() || productoFound.get().getStock() == 0 || productoFound.get().getStock() < requestProductDetail.getQuantity()){
-//                throw new Exception("Product not found" + requestProductDetail.getProductoId());
-//            }
             if(productoFound.isEmpty()) {
                 throw new ValidationException("Product not found", "id");
             }
