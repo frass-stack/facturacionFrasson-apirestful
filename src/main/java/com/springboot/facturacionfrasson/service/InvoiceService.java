@@ -1,5 +1,6 @@
 package com.springboot.facturacionfrasson.service;
 
+import com.springboot.facturacionfrasson.exception.ValidationException;
 import com.springboot.facturacionfrasson.model.*;
 import com.springboot.facturacionfrasson.repository.ClientRepository;
 import com.springboot.facturacionfrasson.repository.InvoiceRepository;
@@ -32,7 +33,7 @@ public class InvoiceService {
         //Buscamos cliente y productos
         Optional<Client> clientFound = this.clientRepository.findById(requestInvoice.getClient_id());
         if(clientFound.isEmpty()){
-            throw new Exception("Client not found: " + requestInvoice.getClient_id());
+            throw new ValidationException("Client not found: " + requestInvoice.getClient_id(), "id");
         }
         Client client = clientFound.get();
         List<Product> productList = productService.getProductsById(requestInvoice.getProduct_list());
