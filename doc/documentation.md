@@ -112,4 +112,32 @@ DELETE/api/v1/product/{id}: Sirve para borrar un producto generado, mediante su 
 <br>
 POST/api/v1/invoice: Sirve para generar una factura dentro del sistema.<br><br>
 GET/{id}/client/{client_id}: Sirve para obtener una factura especifica, mediante su identificador. Necesita ademas del identificador unido del cliente al cual la factura esta asociada.<br><br>
-GET/getInvoiceByClientId/{client_id}: Sirve para obtener todas las facturas asociadas a un cliente, mediante el identificador del mismo.
+GET/getInvoiceByClientId/{client_id}: Sirve para obtener todas las facturas asociadas a un cliente, mediante el identificador del mismo.<br><br>
+
+## Comentarios adicionales
+<br>
+
+### Mejoras adicionales
+<br>
+1. Como parte de las futuras mejoras de la aplicación, se tiene planeado desarrollar el frontend, es decir, la parte visible y con la que los usuarios interactúan. El objetivo es crear una interfaz intuitiva, atractiva y fácil de usar. Algunas de las consideraciones para implementar el frontend incluyen:
+
+**Diseño de la interfaz de usuario**: Se llevará a cabo un proceso de diseño para definir cómo se verá y se organizará la interfaz de la aplicación. Esto implica determinar la disposición de los elementos, los colores, las fuentes, los estilos y otros aspectos visuales que proporcionen una experiencia agradable y coherente para los usuarios.
+
+**Desarrollo de componentes**: Se desarrollarán los componentes necesarios para la interfaz de usuario. Estos componentes pueden incluir botones, formularios, tablas, gráficos, elementos de navegación, entre otros. Los componentes se construirán de manera modular y reutilizable, lo que facilitará su implementación y mantenimiento a medida que se agreguen nuevas funcionalidades.
+
+**Implementación de estilos y CSS**: Se utilizarán hojas de estilo en cascada (CSS) para definir los estilos visuales de los componentes y de la aplicación en general. Esto incluye la aplicación de estilos de diseño, como alineación, espaciado, tipografía y colores, para lograr una apariencia coherente y atractiva.
+
+**Interacción y respuesta**: Se implementarán interacciones y respuestas adecuadas para que los usuarios tengan una experiencia fluida y receptiva. Esto puede incluir animaciones, mensajes de confirmación, validaciones de formularios en tiempo real y otras interacciones que mejoren la usabilidad y brinden retroalimentación instantánea al usuario.
+
+2. Además de implementar el frontend, se desarrollará un servicio de login de usuarios. Aquí se describen los pasos involucrados:
+
+**Página de inicio de sesión**: Se creará una página donde los usuarios puedan ingresar sus credenciales, como nombre de usuario y contraseña, para acceder a la aplicación. Esta página tendrá un diseño adecuado y se desarrollará con la interfaz de usuario creada previamente.
+
+**Autenticación y autorización**: Se implementará un mecanismo de autenticación seguro para verificar las credenciales del usuario. Esto puede incluir el cifrado de contraseñas y la validación de la identidad del usuario. La autorización se encargará de controlar los permisos y los niveles de acceso a las diferentes partes de la aplicación.
+
+**Gestión de sesiones**: Se establecerá un sistema para mantener y administrar las sesiones de los usuarios. Esto permitirá que los usuarios permanezcan autenticados mientras utilizan la aplicación y mantendrá su estado y datos relacionados durante su interacción.
+
+**Recuperación de contraseñas**: Se implementará un proceso que permita a los usuarios restablecer sus contraseñas en caso de olvido. Esto podría incluir opciones como el envío de correos electrónicos con enlaces de restablecimiento de contraseñas o preguntas de seguridad para verificar la identidad del usuario.
+<br><br>
+
+En resumen, se planea desarrollar el frontend de la aplicación, centrándose en la interfaz de usuario, el diseño, la interacción y la experiencia general.
