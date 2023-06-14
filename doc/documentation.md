@@ -10,11 +10,11 @@ A continuación se adjunta el DER (Diagrama Entidad Relación) que representa el
 ![DER](./images/DER.jpg?raw=true)
 
 Requisitos Previos
-Antes de comenzar, asegúrate de tener lo siguiente instalado en tu entorno de desarrollo:
+Antes de comenzar, asegúrate de tener lo siguiente instalado en tu entorno de desarrollo:<br>
 
-Java Development Kit (JDK) 8 o superior.
-Un IDE de tu elección (este documento utilizara IntelliJ IDEA).
-Maven o Gradle (este documento utilizará Maven).
+1. Java Development Kit (JDK) 8 o superior.
+2. Un IDE de tu elección (este documento utilizara IntelliJ IDEA).
+3. Maven o Gradle (este documento utilizará Maven).
 
 ### Paso 1: Configuración del Proyecto
 Crea un nuevo proyecto de Spring Boot utilizando Spring Initializr o tu IDE preferido. Asegúrate de incluir las siguientes dependencias:
