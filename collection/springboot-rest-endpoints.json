@@ -1,0 +1,404 @@
+{
+	"info": {
+		"_postman_id": "1cf665c8-fa35-42de-87bc-860ca2f5cbe2",
+		"name": "springboot-rest-coderhouse",
+		"description": "{{url}} = http://localhost:8888/api/v1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22398905"
+	},
+	"item": [
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "guardar-cliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"name\": \"Alejandro Hector\",\r\n   \"lastname\": \"Garcia\",\r\n   \"docnumber\": 32345677\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/client",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/client",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener cliente por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/client/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"client",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update-Client-ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lionel - EL Capitan\",\r\n    \"lastname\": \"Messi - Update\",\r\n    \"docnumber\": \"18345688\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/client/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"client",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar-Client-ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/client/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"client",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Invoice",
+			"item": [
+				{
+					"name": "Consultas para validaciones",
+					"item": [
+						{
+							"name": "Cliente no existe",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"client_id\":20,\r\n    \"product_list\":[\r\n        {\r\n            \"productoId\": 1,\r\n            \"quantity\": 2\r\n        },\r\n        {\r\n            \"productoId\": 2,\r\n            \"quantity\": 3\r\n        },\r\n        {\r\n            \"productoId\": 3,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/invoice",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"invoice"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invoice no existe",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/invoice/10",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"invoice",
+										"10"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Stock de producto es 0 - necesita un producto creado que tenga stock 0",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"client_id\":1,\r\n    \"product_list\":[\r\n        {\r\n            \"productoId\": 1,\r\n            \"quantity\": 2\r\n        },\r\n        {\r\n            \"productoId\": 2,\r\n            \"quantity\": 3\r\n        },\r\n        {\r\n            \"productoId\": 3,\r\n            \"quantity\": 2\r\n        },\r\n        {\r\n            \"productoId\": 4,\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/invoice",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"invoice"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "quantity mayor a stock",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"client_id\":1,\r\n    \"product_list\":[\r\n        {\r\n            \"productoId\": 1,\r\n            \"quantity\": 100\r\n        },\r\n        {\r\n            \"productoId\": 2,\r\n            \"quantity\": 3\r\n        },\r\n        {\r\n            \"productoId\": 3,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/invoice",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"invoice"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Guardar-Factura",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"client_id\":1,\r\n    \"product_list\":[\r\n        {\r\n            \"productoId\": 1,\r\n            \"quantity\": 50\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/invoice",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener-Listado-Facturas-ClientID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/invoice/getInvoiceByClientId/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoice",
+								"getInvoiceByClientId",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener-Factura-ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/invoice/1/client/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"invoice",
+								"1",
+								"client",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Guardar-Producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Auriculares NOGA\",\r\n    \"description\":\"Producto de baja gama\",\r\n    \"code\": \"17852hjkl\",\r\n    \"stock\": 150,\r\n    \"price\": 350\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/product",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener-Producto-ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/product/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update-Producto-ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stock\": 100,\r\n    \"price\": 1900\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/product/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar-Producto-ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/product/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener-Productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/product",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
