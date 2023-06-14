@@ -79,7 +79,13 @@ En la presenta aplicacion se utiliza una cantidad moderada de los mismos. Depend
 [ClienttController](../src/main/java/com/springboot/facturacionfrasson/controller/ClientController.java)<br>
 [InvoiceController](../src/main/java/com/springboot/facturacionfrasson/controller/InvoiceController.java)<br>
 
-### Paso 6: Ejecución de la Aplicación
+### Paso 6: Middlewares
+1. el middleware en la arquitectura de capas MVC para Spring Boot se utiliza para agregar funcionalidades comunes a nivel de solicitud antes de que las solicitudes lleguen a los controladores.<br>
+Esto ayuda a mantener un código modular, facilita el reuso y la centralización de la lógica común, y proporciona una manera eficiente de implementar funcionalidades como autenticación, autorización, validación y almacenamiento en caché.
+<br><br>
+[ResponseHandler](../src/main/java/com/springboot/facturacionfrasson/middleware/ResponseHandler.java)
+
+### Paso 7: Ejecución de la Aplicación
 1. Ejecuta la aplicación desde tu IDE o utilizando el siguiente comando Maven en la línea de comandos:
 
 mvn spring-boot:run
