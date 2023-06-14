@@ -55,6 +55,13 @@ Son responsables de interactuar con la capa de almacenamiento de datos, como una
 [InvoiceRepository](../src/main/java/com/springboot/facturacionfrasson/repository/InvoiceRepository.java)<br>
 [InvoiceDetailRepository](../src/main/java/com/springboot/facturacionfrasson/repository/InvoiceDetailRepository.java)<br>
 
+3.  Creacion de DTO (Data Transfer Object)
+<br>
+
+En el contexto del patrón Modelo-Vista-Controlador (MVC) en Spring Boot, los DTO (Data Transfer Objects) son objetos utilizados para transferir datos entre la capa de modelo y la capa de vista de una aplicación.<br>
+Los DTO se utilizan como una forma de estructurar y encapsular los datos que se enviarán desde el controlador hacia la vista, o viceversa.<br>
+En la presenta aplicacion se utiliza una cantidad moderada de los mismos. Dependiendo la aplicacion y la escalabilidad de la misma esta cantidad puede ser superior y uso debe ser a consciencia puesto que puede hacer mas compleja la interaccion entre capas si no se utilizan bien.
+
 ### Paso 4: Capa de Servicios
 1. Los servicios son componentes que encapsulan la lógica de negocio de una aplicación. Son responsables de coordinar y orquestar diversas operaciones y acciones dentro del sistema.<br> Los servicios definen una funcionalidad específica y suelen ser invocados por los controladores o por otros servicios. Su propósito es separar la lógica de negocio de los detalles de implementación y proporcionar una abstracción para que los controladores puedan utilizar la funcionalidad de manera coherente.
 
