@@ -21,6 +21,15 @@ public class Product {
     private double price;
     @Column(nullable = false)
     private int stock;
+    private boolean isActive;
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true,fetch = FetchType.EAGER)
     private List<InvoiceDetail> invoiceDetails;

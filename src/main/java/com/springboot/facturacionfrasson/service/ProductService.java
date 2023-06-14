@@ -24,12 +24,15 @@ public class ProductService {
         if(product.getCode() == null) throw new ValidationException("Product code is empty.", "sku");
         if(Double.valueOf(product.getPrice()) == null || product.getPrice() <= 0.0) throw new ValidationException("Product price is wrong.", "price");
         if(Integer.valueOf(product.getStock()) == null || product.getStock() <= 0) throw new ValidationException("Product stock is wrong.", "stock");
+
+        product.setActive(true);
+
         return this.productRepository.save(product);
     }
 
     public void updateProduct(int id, Product updateProduct) throws Exception{
         Optional<Product> productFoundUpdate = this.productRepository.findById(id);
-        if(productFoundUpdate.isEmpty()){
+        if(productFoundUpdate.isEmpty() || !productFoundUpdate.get().getIsActive()){
             throw new Exception("Product not founded with id: " + id);
         }
         //Actualizamos el producto
@@ -47,7 +50,7 @@ public class ProductService {
 
     public ProductDTO getProductById(int id) throws Exception{
         Optional<Product> productFound = this.productRepository.findById(id);
-        if(productFound.isEmpty()){
+        if(productFound.isEmpty() || !productFound.get().getIsActive()){
             throw new Exception("Product not founded with id: " + id);
         }
         ProductDTO productDTO = new ProductDTO(
@@ -68,7 +71,7 @@ public class ProductService {
             Optional<Product> productoFound = this.productRepository.findById(requestProductDetail.getProductoId());
 
             //Validdamos que el producto este, tenga stock disponible o la cantidad pedida no sea mayor al stock.
-            if(productoFound.isEmpty()) {
+            if(productoFound.isEmpty() || !productoFound.get().getIsActive()) {
                 throw new ValidationException("Product not found", "id");
             }
             if (productoFound.get().getStock() == 0) {
@@ -84,7 +87,7 @@ public class ProductService {
 
     public ProductDTO deleteProduct(int id) throws Exception{
         Optional<Product> productFound = this.productRepository.findById(id);
-        if(productFound.isEmpty()){
+        if(productFound.isEmpty() || !productFound.get().getIsActive()){
             throw new Exception("Product not founded with id: " + id);
         }
         ProductDTO product = new ProductDTO(
@@ -95,12 +98,15 @@ public class ProductService {
                 productFound.get().getPrice(),
                 productFound.get().getStock()
         );
-        this.productRepository.deleteById(productFound.get().getId());
+        productFound.get().setActive(false);
+//        this.productRepository.deleteById(productFound.get().getId());
+        this.productRepository.save(productFound.get());
         return product;
     }
 
     public List<ProductDTO> getProducts() throws Exception {
-        List<Product> productList = this.productRepository.findAll();
+//        List<Product> productList = this.productRepository.findAll();
+        List<Product> productList = this.productRepository.findByIsActiveTrue();
         List<ProductDTO> productDTOS = new ArrayList<>();
         if(productList.isEmpty()) {
             throw new Exception("List is empty.");
