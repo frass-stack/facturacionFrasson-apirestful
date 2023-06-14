@@ -32,7 +32,7 @@ public class InvoiceService {
         //Buscamos cliente y productos
         Optional<Client> clientFound = this.clientRepository.findById(requestInvoice.getClient_id());
         if(clientFound.isEmpty()){
-            throw new Exception("Client not found");
+            throw new Exception("Client not found: " + requestInvoice.getClient_id());
         }
         Client client = clientFound.get();
         List<Product> productList = productService.getProductsById(requestInvoice.getProduct_list());
@@ -115,7 +115,7 @@ public class InvoiceService {
     public List<InvoiceDTO> getInvoiceByClientId(int client_id) throws Exception{
         Optional<Client> clientFound = this.clientRepository.findById(client_id);
         if(clientFound.isEmpty()){
-            throw new Exception("Client not found");
+            throw new Exception("Client not found: " + client_id);
         }
         List<InvoiceDTO> data = this.invoiceRepository.getInvoiceByClientId(clientFound.get().getId());
         return data;

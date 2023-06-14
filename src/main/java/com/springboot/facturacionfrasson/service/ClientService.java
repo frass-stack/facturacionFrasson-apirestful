@@ -45,7 +45,7 @@ public class ClientService {
     public ClientDTO getClientById(int id) throws Exception{
         Optional<Client> clientFounded = this.clientRepository.findById(id);
         if(clientFounded.isEmpty()){
-            throw new Exception("Client not found");
+            throw new Exception("Client not found: " + id);
         }
         ClientDTO clientDTO = new ClientDTO(
                 clientFounded.get().getId(),
@@ -59,7 +59,7 @@ public class ClientService {
     public void deleteClient(int id) throws Exception{
         Optional<Client> clientDelete = this.clientRepository.findById(id);
         if(clientDelete.isEmpty()){
-            throw new Exception("Client not found");
+            throw new Exception("Client not found: " + id);
         }
         Client client = clientDelete.get();
         this.clientRepository.deleteById(id);

@@ -52,7 +52,7 @@ public class InvoiceController {
             );
         }catch(Exception e){
             return ResponseHandler.generateResponse(
-                    "Invoice not found",
+                    "Invoice not found:" + id,
                     HttpStatus.INTERNAL_SERVER_ERROR,
                     null
             );
@@ -70,7 +70,7 @@ public class InvoiceController {
             );
         }catch(Exception e){
             return ResponseHandler.generateResponse(
-                    "Invoice not found",
+                    "Invoice not found: " + client_id,
                     HttpStatus.INTERNAL_SERVER_ERROR,
                     null
             );

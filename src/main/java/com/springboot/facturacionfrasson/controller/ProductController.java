@@ -68,7 +68,7 @@ public class ProductController {
             );
         }catch(Exception e){
             return ResponseHandler.generateResponse(
-                    "Product not found",
+                    "Product not found: " + id,
                     HttpStatus.INTERNAL_SERVER_ERROR,
                     null
             );
