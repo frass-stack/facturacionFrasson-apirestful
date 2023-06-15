@@ -205,7 +205,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"client_id\":1,\r\n    \"product_list\":[\r\n        {\r\n            \"productoId\": 1,\r\n            \"quantity\": 50\r\n        },\r\n        {\r\n            \"productoId\": 2,\r\n            \"quantity\": 10\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"client_id\":1,\r\n    \"product_list\":[\r\n        {\r\n            \"productoId\": 1,\r\n            \"quantity\": 70\r\n        }\r\n]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
