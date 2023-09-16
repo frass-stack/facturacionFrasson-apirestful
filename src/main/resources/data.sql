@@ -4,6 +4,6 @@ insert into client (name, lastname, docnumber)values('Lionel', 'Messi', '1834568
 insert into client (name, lastname, docnumber)values('Diego', 'Maradona', '12345677');
 insert into client (name, lastname, docnumber)values('Ernesto', 'Sabato', '11345677');
 
-insert into product (description, code, stock, price)values('Producto de alta gama', '123456fgcv', 20, 350);
-insert into product (description, code, stock, price)values('Para fanaticos del deporte', '123789fgdj', 15,600);
-insert into product (description, code, stock, price)values('Barato, pero eficiente', '445456fgcv', 50, 175);
+insert into product (title, description, code, stock, price, is_active)values('ASUS notebook','Producto de alta gama', '123456fgcv', 20, 350, true);
+insert into product (title, description, code, stock, price, is_active)values('equipo termico pro','Para fanaticos del deporte', '123789fgdj', 15,600, true);
+insert into product (title, description, code, stock, price, is_active)values('Watch reloj NOGA','Barato, pero eficiente', '445456fgcv', 50, 175, true);

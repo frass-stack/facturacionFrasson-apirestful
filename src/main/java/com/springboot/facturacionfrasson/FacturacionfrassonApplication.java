@@ -13,7 +13,8 @@ public class FacturacionfrassonApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("Server listening. Access H2 on: http://localhost:8888/h2-console");
+//		System.out.println("Server listening. Access H2 on: http://localhost:8888/h2-console");
+		System.out.println("Server listening. Access H2 on: http://localhost:8888/");
 	}
 
 }

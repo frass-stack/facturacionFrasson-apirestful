@@ -28,7 +28,7 @@ Importa el proyecto en tu IDE y asegúrate de que todas las dependencias se haya
 ### Paso 2: Configuración de la Base de Datos H2
 1. Abre el archivo application.properties (o application.yml) en el directorio src/main/resources y agrega la siguiente configuración:
 
-[application.properties](../src/main/resources/application.properties)
+[application.properties](application.properties)
 
 Esto habilitará la consola de H2 y configurará la conexión a la base de datos en memoria.
 

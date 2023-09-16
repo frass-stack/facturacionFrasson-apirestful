@@ -11,7 +11,8 @@ CREATE TABLE product(
     description VARCHAR(150),
     code VARCHAR(50) UNIQUE NOT NULL,
     stock INTEGER,
-    price DOUBLE
+    price DOUBLE,
+    is_active BOOLEAN
 );
 
 CREATE TABLE invoice(
