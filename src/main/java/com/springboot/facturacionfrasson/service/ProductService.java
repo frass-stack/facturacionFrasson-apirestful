@@ -37,6 +37,7 @@ public class ProductService {
         }
         //Actualizamos el producto
         Product productUpdate = productFoundUpdate.get();
+        if(updateProduct.getTitle() != null) productUpdate.setTitle(updateProduct.getTitle());
         if(updateProduct.getDescription() != null) productUpdate.setDescription(updateProduct.getDescription());
         if(updateProduct.getCode() != null) productUpdate.setCode(updateProduct.getCode());
         if(updateProduct.getPrice() >= 0) productUpdate.setPrice(updateProduct.getPrice());
