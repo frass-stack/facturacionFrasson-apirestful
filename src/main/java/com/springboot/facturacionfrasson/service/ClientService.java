@@ -78,4 +78,18 @@ public class ClientService {
         //Guardamos el cliente actualizado
         this.clientRepository.save(clientUpdate);
     }
+
+    public ClientDTO login(String docnumber) throws Exception{
+        Optional<Client> clientFounded = this.clientRepository.findByDocnumber(docnumber);
+        if(clientFounded.isEmpty()){
+            throw new Exception("Client not found: " + docnumber);
+        }
+        ClientDTO clientDTO = new ClientDTO(
+                clientFounded.get().getId(),
+                clientFounded.get().getName(),
+                clientFounded.get().getLastname(),
+                clientFounded.get().getDocnumber()
+        );
+        return clientDTO;
+    }
 }

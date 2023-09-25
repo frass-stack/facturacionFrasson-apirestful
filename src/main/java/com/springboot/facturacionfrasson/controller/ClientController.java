@@ -113,4 +113,25 @@ public class ClientController {
             );
         }
     }
+
+    @GetMapping(path = "login/{docnumber}")
+    public ResponseEntity<Object> login(@PathVariable() String docnumber){
+        //System.out.println(docnumber);
+        try{
+            ClientDTO clientFound = clientService.login(docnumber);
+            return ResponseHandler.generateResponse(
+                    "Client stored successfully",
+                    HttpStatus.OK,
+                    clientFound
+            );
+        }catch (ValidationException e) {
+            return ResponseHandler.generateValidationErrorResponse(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST,
+                    e.getField()
+            );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
